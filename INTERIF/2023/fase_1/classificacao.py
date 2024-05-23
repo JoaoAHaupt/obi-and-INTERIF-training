@@ -1,34 +1,35 @@
 a, b, c = input().split(" ")
-i = 0
-dict = {}
+a = int(a)
+b = int(b)
+c = int(c)
+
 participantes = []
+tempos = {}
 
-while i != int(a):
-    nome = input()
+for _ in range(a):
+    nome = input().strip()
     participantes.append(nome)
-    i += 1
-i = 0
 
-while i != int(b):
+for _ in range(b):
     sigla, tempo = input().split(" ")
-    if sigla not in dict:
-        dict[sigla] = []
-    dict[sigla].append(tempo)
-    i += 1
+    if sigla not in tempos:
+        tempos[sigla] = []
+    tempos[sigla].append(tempo)
 
-i = 0
-while i != int(c):
+for _ in range(c):
     sigla, tempo = input().split(" ")
-    arr = dict[sigla]
-    arr.remove(tempo)
-    i += 1
+    if sigla in tempos and tempo in tempos[sigla]:
+        tempos[sigla].remove(tempo)
 
-menores = {}
+menores = []
+
 for participante in participantes:
-    arr = sorted(dict[participante[:3].upper()])
-    menores[arr[0]] = participante
+    sigla = participante[:3].upper()
+    if sigla in tempos and tempos[sigla]:
+        arr = sorted(tempos[sigla])
+        menores.append((arr[0], participante))
 
-for i, participante in enumerate(sorted(menores.keys())):
-    print(f"{i+1} {participante} {menores[participante]}")
+menores.sort()
 
-
+for i, (tempo, participante) in enumerate(menores):
+    print(f"{i+1} {tempo} {participante}")
