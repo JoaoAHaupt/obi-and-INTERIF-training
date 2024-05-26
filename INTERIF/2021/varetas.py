@@ -1,6 +1,6 @@
 pontos = {1: 5, 2: 10, 3: 15, 4: 20, 5: 50}
 respostas =[]
-
+rodada = 1
 while True:
     arr = {1: [], 2: [], 3: []}
 
@@ -30,9 +30,11 @@ while True:
     for i in arr:
         if arr[i] == max(arr.values()):
             colocacao.append(f"Jogador {i}")
-            final = "Empate"
+            if len(colocacao) >= 2:
+                final = "Empate"
 
-    respostas.append(f"""{final} com {max(arr.values())} pontos {', '.join(colocacao)}""")
+    respostas.append(f"RODADA {rodada}\n{final} com {max(arr.values())} pontos\n{', '.join(colocacao)}\n")
+    rodada += 1
 
 for resposta in respostas:
     print(resposta)
